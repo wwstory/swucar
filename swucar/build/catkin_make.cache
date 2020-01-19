@@ -1,2 +1,0 @@
-image_detect
--DCATKIN_DEVEL_PREFIX=/home/lab1008/swucar/devel -DCMAKE_INSTALL_PREFIX=/home/lab1008/swucar/install -G Unix Makefiles

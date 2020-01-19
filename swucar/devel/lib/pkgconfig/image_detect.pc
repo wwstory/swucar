@@ -1,8 +1,0 @@
-prefix=/home/lab1008/swucar/devel
-
-Name: image_detect
-Description: Description of image_detect
-Version: 0.0.0
-Cflags: -I/home/lab1008/swucar/devel/include
-Libs: -L/home/lab1008/swucar/devel/lib 
-Requires: 
