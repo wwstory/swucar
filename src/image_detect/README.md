@@ -6,7 +6,7 @@ roslaunch realsense2_camera rs_camera.launch
 - `main.py`处理`/camera/color/image_raw`话题的图片，并发布定位数据到`/image_detection`话题。
 
 # install
-## pc
+## pc (训练)
 
 安装ros：
 http://wiki.ros.org/melodic/Installation/Ubuntu
@@ -19,19 +19,31 @@ https://github.com/IntelRealSense/realsense-ros
 
 安装pytorch
 
-## nvidia xavier
 
-安装ros：
-http://wiki.ros.org/melodic/Installation/Ubuntu
-
-安装realsense sdk：
-https://github.com/jetsonhacks/installRealSenseSDK
-
-安装realsense-ros：
-https://github.com/IntelRealSense/realsense-ros
+## jetson xavier
+- https://github.com/jetsonhacks/installRealSenseSDK
+- https://github.com/jetsonhacks/installROS
+- https://github.com/jetsonhacks/installRealSenseROS
+- https://github.com/jetsonhacks/buildOpenCVXavier
 
 安装pytorch：
-https://www.ncnynl.com/archives/201903/2901.html
+https://elinux.org/Jetson_Zoo
+
+> 编译opencv问题：`catastrophic error: error while writing generated C++ file: No space left on device`，空间不够
+
+## python库
+```
+torch
+torchvision
+PyYAML
+rospy
+rospkg
+pillow<7.0.0
+opencv
+```
+
+> opencv：使用nvidia官方给的编译脚本安装 (无须自己下载opencv.git)
+
 
 # run
 如果要运行，需要在`image_detect/scripts/checkpoints/`目录放入SSD训练好的模型。（此处的模型名称`config.py`中设为了`COCO.pth`）
@@ -61,5 +73,11 @@ https://blog.csdn.net/lucky__ing/article/details/79949294
 
 ros监听多个topic：
 https://blog.csdn.net/zlb_zlb/article/details/103444360
+
+xavier安装pytorch：
+https://elinux.org/Jetson_Zoo
+https://devtalk.nvidia.com/default/topic/1041716/jetson-agx-xavier/pytorch-install-problem/
+https://devtalk.nvidia.com/default/topic/1049071/jetson-nano/pytorch-for-jetson-nano/
+https://github.com/pytorch/pytorch/issues/8103
 
 

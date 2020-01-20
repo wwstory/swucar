@@ -10,10 +10,8 @@ from image_detect.msg import Detection
 # need
 import numpy as np
 # test
-import matplotlib.pyplot as plt
 import time
 from data import COCO_CLASSES as CLASSES
-from PIL import Image as PImage
 
 
 class ImageMark:

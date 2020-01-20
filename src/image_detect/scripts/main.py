@@ -22,7 +22,7 @@ class ImageDetect:
 
         rospy.init_node('image_detect_node')
         rospy.Subscriber('/camera/color/image_raw', Image, self.callback)
-        self.pub = rospy.Publisher('image_detection', Detection , queue_size=10)
+        self.pub = rospy.Publisher('image_detection', Detection , queue_size=1)
         rospy.loginfo('start...')
 
     def callback(self, image):

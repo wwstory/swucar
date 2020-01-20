@@ -15,7 +15,7 @@ class Config(object):
     basenet = '/home/data/pretrain_models/vgg16_reducedfc.pth'
     save_folder = 'checkpoints/'
     # trained_model = save_folder + 'COCO.pth' # '/home/data/pretrain_models/COCO.pth'
-    trained_model = '/home/lab1008/swucar/src/image_detect/scripts/checkpoints/COCO.pth' # '/home/data/pretrain_models/COCO.pth'
+    trained_model = '/home/nvidia/swucar/src/image_detect/scripts/checkpoints/COCO.pth' # '/home/data/pretrain_models/COCO.pth'
     
     # net
     max_epoch = 100
