@@ -1,0 +1,34 @@
+#!/bin/bash
+
+env(){
+    ls
+}
+
+run(){
+    roslaunch starter starter.launch
+}
+
+test_func(){
+    roslaunch test_tools fake_starter.launch
+}
+
+build(){
+    rm -rf devel/ build/
+    catkin_make -DPYTHON_EXECUTABLE=/usr/bin/python3
+}
+
+
+case $1 in
+    "build")
+        build
+    ;;
+    "env")
+        env
+    ;;
+    "test")
+        test_func
+    ;;
+    *)
+        run
+    ;;
+esac

@@ -1,0 +1,6 @@
+<launch>
+    <node pkg="vision_lane_detect" type="lane_detect_node.py" name="lane_detect_node" output="screen">
+        <remap from="image_raw_rgb" to="/camera_array/cam0/image_raw" />
+        <param name="weights_path" value="$(find vision_lane_detect)/weights/culane_18.pth" />
+    </node>
+</launch>

@@ -1,8 +1,0 @@
-{
-    "python.autoComplete.extraPaths": [
-        "/home/lab1008/ros/demo/devel/lib/python2.7/dist-packages",
-        "/home/lab1008/ros/catkin_ws/devel/lib/python2.7/dist-packages",
-        "/home/dejiang/ros/catkin_ws/devel/lib/python2.7/dist-packages",
-        "/opt/ros/melodic/lib/python2.7/dist-packages"
-    ]
-}
