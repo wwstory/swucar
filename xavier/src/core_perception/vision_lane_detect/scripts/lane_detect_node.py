@@ -39,8 +39,8 @@ class LaneDetectNode:
         lane_data = []
         for lane in lanes:
             for p in lane:
-                x, y = p
-                lane_data.append(x, y)
+                # x, y = p; lane_data.extend([x, y])
+                lane_data.extend(p)
         lane_msg.data = lane_data
 
         # 发送

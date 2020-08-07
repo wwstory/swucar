@@ -1,10 +1,17 @@
 #!/bin/bash
 
 env(){
-    ls
+    OTHER_ENV=/home/nevc/gitlab/swucar/other/devel/setup.bash
+    if [ -f "${OTHER_ENV}" ];then
+        source /home/nevc/gitlab/swucar/other/devel/setup.bash
+    else
+        echo "${OTHER_ENV} not exist!"
+        exit 1
+    fi
 }
 
 run(){
+    env
     roslaunch starter starter.launch
 }
 

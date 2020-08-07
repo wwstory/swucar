@@ -52,9 +52,10 @@ class LaneDetector:
         # 显示
         # self.show(cv_img, lanes)
 
+        return lanes
+
 
     def _preprocess(self, img):
-        # self.img_height, self.img_width, _ = img.shape
         self.rate = 0.0339
 
         img = cv2.resize(img, (800, 288))
@@ -81,20 +82,26 @@ class LaneDetector:
         lanes = []
         for col in range(loc.shape[1]):
             lane = []
-            if np.sum(loc[:, col] != 0) > 2:  # 这条道有点
-                for row in range(loc.shape[0]):
-                    if loc[row, col] > 0:   # 这个格子有点
-                        # point = (int(loc[row, col] / self.griding_num * self.img_width ) - 1, int(self.img_height - row * (self.rate * self.img_height)) - 1)
-                        point = (loc[row, col] / self.griding_num, 1 - row * self.rate)
-                        lane.append(point)
-            lanes.append(lane)
+            # if np.sum(loc[:, col] != 0) > 2:  # 这条道有点
+            for row in range(loc.shape[0]):
+                if loc[row, col] > 0:   # 这个格子有点
+                    # point = (int(loc[row, col] / self.griding_num * self.img_width ) - 1, int(self.img_height - row * (self.rate * self.img_height)) - 1)
+                    point = np.array([loc[row, col] / self.griding_num, 1 - row * self.rate])
+                else:
+                    point = np.array([0., 0.])
+                lane.append(point)
+            lanes.append(np.array(lane))
         return lanes
 
 
     def show(self, img, lanes, out_path='/tmp/out.jpg'):
+        h, w, _ = img.shape
         for lane in lanes:
             for point in lane:
-                cv2.circle(img, point, 5, (70, 70, 255), -1)
+                x, y = point
+                x *= w
+                y *= h
+                cv2.circle(img, (x, y), 5, (70, 70, 255), -1)
         # cv2.imshow('', img)
         # cv2.waitKey(3000)
         cv2.imwrite(out_path, img)
