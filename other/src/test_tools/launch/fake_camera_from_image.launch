@@ -1,0 +1,7 @@
+<launch>
+    <!-- <param name="test_file_path" value="$(find test_tools)/resources/test.jpg" /> -->
+    <param name="test_file_path" value="/tmp/test.jpg" />
+    <node pkg="test_tools" type="fake_camera_from_image.py" name="fake_camera" output="screen">
+        <remap from="image_raw" to="/camera_array/cam0/image_raw" />
+    </node>
+</launch>

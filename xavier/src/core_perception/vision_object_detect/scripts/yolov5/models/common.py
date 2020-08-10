@@ -1,6 +1,7 @@
 # This file contains modules common to various models
 
-from yolov5.utils.utils import *
+import torch
+from torch import nn
 
 
 def autopad(k, p=None):  # kernel, padding

@@ -1,8 +1,7 @@
 <launch>
     <node pkg="vision_object_detect" type="object_detect_node.py" name="object_detect_node" output="screen">
         <remap from="image_raw_rgb" to="/image_raw" />
-        <param name="weights_path" value="$(find vision_object_detect)/weights/yolov5s.pth" />
-        <param name="yolov5_yaml_path" value="$(find vision_object_detect)/weights/yolov5s.yaml" />
-        <param name="names_path" value="$(find vision_object_detect)/weights/names.yaml" />
+        <param name="weights_path" value="$(find vision_object_detect)/weights/yolov5s17.pt" />
+        <param name="yolov5_path" value="$(find vision_object_detect)/scripts/yolov5" />
     </node>
 </launch>

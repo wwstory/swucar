@@ -2,11 +2,14 @@
 
 import rospy
 import cv2
+import numpy as np
+
 from cv_bridge import CvBridge, CvBridgeError
 from sensor_msgs.msg import Image
 from vision_lane_detect.msg import Lane
 
 from ufld.lane_detector import LaneDetector
+
 
 class LaneDetectNode:
     
@@ -36,12 +39,7 @@ class LaneDetectNode:
         lane_msg = Lane()
         lane_msg.header.stamp = rospy.Time.now()
         lane_msg.num = len(lanes)
-        lane_data = []
-        for lane in lanes:
-            for p in lane:
-                # x, y = p; lane_data.extend([x, y])
-                lane_data.extend(p)
-        lane_msg.data = lane_data
+        lane_msg.data = lanes.flatten().tolist()
 
         # 发送
         self.lane_pub.publish(lane_msg)

@@ -1,0 +1,7 @@
+<launch>
+    <param name="test_file_path" value="/tmp/test.mp4" />
+    <node pkg="test_tools" type="fake_camera_from_video.py" name="fake_camera" output="screen">
+        <remap from="image_raw" to="/camera_array/cam0/image_raw" />
+        <param name="rate" value="24" />
+    </node>
+</launch>

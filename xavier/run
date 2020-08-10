@@ -1,6 +1,7 @@
 #!/bin/bash
 
 env(){
+    export ROS_PYTHON_VERSION=3
     OTHER_ENV=/home/nevc/gitlab/swucar/other/devel/setup.bash
     if [ -f "${OTHER_ENV}" ];then
         source /home/nevc/gitlab/swucar/other/devel/setup.bash
@@ -11,7 +12,6 @@ env(){
 }
 
 run(){
-    env
     roslaunch starter starter.launch
 }
 

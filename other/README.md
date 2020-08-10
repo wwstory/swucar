@@ -1,4 +1,8 @@
 
+# lib
+
+- vision_opencv: https://github.com/ros-perception/vision_opencv
+
 # 打开uvc摄像头
 
 url: http://wiki.ros.org/uvc_camera

@@ -86,12 +86,12 @@ class LaneDetector:
             for row in range(loc.shape[0]):
                 if loc[row, col] > 0:   # 这个格子有点
                     # point = (int(loc[row, col] / self.griding_num * self.img_width ) - 1, int(self.img_height - row * (self.rate * self.img_height)) - 1)
-                    point = np.array([loc[row, col] / self.griding_num, 1 - row * self.rate])
+                    point = (loc[row, col] / self.griding_num, 1 - row * self.rate)
                 else:
-                    point = np.array([0., 0.])
+                    point = (0., 0.)
                 lane.append(point)
-            lanes.append(np.array(lane))
-        return lanes
+            lanes.append(lane)
+        return np.array(lanes)  # shape: col, row, point(x,y)
 
 
     def show(self, img, lanes, out_path='/tmp/out.jpg'):

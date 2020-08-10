@@ -7,13 +7,12 @@ from std_msgs.msg import String
 from sensor_msgs.msg import Image
 from vision_object_detect.msg import Bbox
 
-from yolov5.detect import Detect
-
+# import yolov5 in main()
 
 class ObjectDetectNode:
     
-    def __init__(self, weights_path, yaml_conf, names):
-        self.object_detector = Detect(weights_path, yaml_conf, names)
+    def __init__(self, weights_path):
+        self.object_detector = Detect(weights_path)
         self.bridge = CvBridge()
 
         self.img_sub = rospy.Subscriber('/image_raw_rgb', Image, self.callback, queue_size=3)
@@ -41,6 +40,9 @@ class ObjectDetectNode:
         self.object_pub.publish(bbox_msg)
 
     def write_msg(self, bbox):
+        '''
+            bbox -> bbox_msg
+        '''
         msg = Bbox()
         msg.header.stamp = rospy.Time.now()
 
@@ -51,15 +53,19 @@ class ObjectDetectNode:
             classes.append(String(b[4]))    # ros String()
             boxes.extend(b[:4])
             confidence.append(b[-1])
+        msg.num = len(classes)
         msg.classes = classes
         msg.boxes = boxes
         msg.confidence = confidence
         return msg
     
     def read_msg(self, msg):
+        '''
+            bbox_msg -> bbox
+        '''
         bbox = []
 
-        classes = msg.classes.data
+        classes =[c.data for c in msg.classes]
         boxes = msg.boxes
         confidence = msg.confidence
         for i in range(len(classes)):
@@ -69,15 +75,13 @@ class ObjectDetectNode:
 
 if __name__ == "__main__":
     rospy.init_node('object_detect_node')
+    weights_path = rospy.get_param('~yolov5_path')
+
+    # load yolov5 sys path
+    import sys
+    sys.path.append(weights_path)
+    from my_detect import Detect
 
     weights_path = rospy.get_param('~weights_path')
-    yolov5_yaml_path = rospy.get_param('~yolov5_yaml_path')
-    names_path = rospy.get_param('~names_path')
-
-
-    import yaml
-    with open(names_path, 'r') as f:
-        names_yaml = yaml.load(f, Loader=yaml.FullLoader)
-    names = names_yaml.get('names')
     
-    ObjectDetectNode(weights_path, yolov5_yaml_path, names).start()
+    ObjectDetectNode(weights_path).start()

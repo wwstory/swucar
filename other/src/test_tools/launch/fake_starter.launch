@@ -1,0 +1,8 @@
+<launch>
+    <include file="$(find test_tools)/launch/fake_camera_from_video.launch" />
+    <!-- <include file="$(find test_tools)/launch/fake_camera_from_image.launch" /> -->
+
+    <!-- test -->
+    <include file="$(find test_tools)/launch/visual_mark_object_lane.launch" />
+
+</launch>

@@ -1,0 +1,5 @@
+<launch>
+    <node pkg="test_tools" type="visual_mark_object_lane.py" name="visual_mark_object_lane_node" output="screen">
+        <remap from="image_raw_rgb" to="/image_raw" />
+    </node>
+</launch>
