@@ -8,8 +8,6 @@ from cv_bridge import CvBridge, CvBridgeError
 from sensor_msgs.msg import Image
 from vision_lane_detect.msg import Lane
 
-from ufld.lane_detector import LaneDetector
-
 
 class LaneDetectNode:
     
@@ -47,6 +45,12 @@ class LaneDetectNode:
 
 if __name__ == "__main__":
     rospy.init_node('lane_detect_node')
+    ufld_path = rospy.get_param('~ufld_path')
+
+    # load ufld sys path
+    import sys
+    sys.path.append(ufld_path)
+    from lane_detector import LaneDetector
 
     weights_path = rospy.get_param('~weights_path')
     

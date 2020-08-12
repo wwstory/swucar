@@ -75,11 +75,11 @@ class ObjectDetectNode:
 
 if __name__ == "__main__":
     rospy.init_node('object_detect_node')
-    weights_path = rospy.get_param('~yolov5_path')
+    yolo_path = rospy.get_param('~yolov5_path')
 
     # load yolov5 sys path
     import sys
-    sys.path.append(weights_path)
+    sys.path.append(yolo_path)
     from my_detect import Detect
 
     weights_path = rospy.get_param('~weights_path')

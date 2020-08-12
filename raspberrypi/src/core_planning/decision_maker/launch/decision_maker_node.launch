@@ -1,0 +1,4 @@
+<launch>
+    <node pkg="decision_maker" type="decision_maker_node.py" name="decision_maker_node" output="screen">
+    </node>
+</launch>

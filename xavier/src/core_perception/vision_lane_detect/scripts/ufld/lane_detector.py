@@ -4,7 +4,7 @@ from torch.nn.functional import softmax
 import numpy as np
 import torchvision.transforms as T
 
-from ufld.model.model import parsingNet
+from model.model import parsingNet
 
 
 class LaneDetector:

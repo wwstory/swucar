@@ -1,0 +1,4 @@
+<launch>
+    <!-- start -->
+    <include file="$(find decision_maker)/launch/decision_maker_node.launch" />
+</launch>

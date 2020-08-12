@@ -1,9 +1,5 @@
 #!/bin/bash
 
-env(){
-    export ROS_PYTHON_VERSION=3
-}
-
 run(){
     roslaunch starter starter.launch
 }
@@ -17,9 +13,6 @@ build(){
 case $1 in
     "build")
         build
-    ;;
-    "env")
-        env
     ;;
     *)
         run

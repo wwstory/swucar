@@ -27,10 +27,10 @@ def clean_up():
 
 
 if __name__ == "__main__":
-    rospy.init_node('/fake/fake_camera_node')
+    rospy.init_node('fake_camera_node')
     rospy.on_shutdown(clean_up)
 
-    pub = rospy.Publisher('image_raw', Image, queue_size=1)
+    pub = rospy.Publisher('/image_raw', Image, queue_size=1)
 
     bridge = CvBridge()
 

@@ -1,7 +1,7 @@
 import torch
 import numpy as np
 
-from ufld.model.backbone import resnet
+from model.backbone import resnet
 
 
 class conv_bn_relu(torch.nn.Module):
