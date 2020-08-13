@@ -53,7 +53,7 @@ class Detect:
 
         # Run inference
         img = torch.zeros((1, 3, imgsz, imgsz), device=device)  # init img
-        _ = model(img.half() if half else img) if device.type != 'cpu' else None  # run once
+        _ = model(img.half() if self.half else img) if device.type != 'cpu' else None  # run once
 
         self.model = model
 

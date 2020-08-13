@@ -13,8 +13,8 @@ from utils import set_twist
 
 
 # 接收到车道线的数据后的处理
-def lane_callback(bbox):
-    l_handler.load_status(status, bbox)
+def lane_callback(lane):
+    l_handler.load_status(status, lane)
 
 # 接收到目标检测的数据后的处理
 def object_callback(bbox):
