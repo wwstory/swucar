@@ -2,12 +2,11 @@
 
 import rospy
 import cv2
-from cv_bridge import CvBridge, CvBridgeError
 from std_msgs.msg import String
 from sensor_msgs.msg import Image
 from vision_object_detect.msg import Bbox
+from ww_cv_bridge import CvBridge, CvBridgeError
 
-# import yolov5 in main()
 
 class ObjectDetectNode:
     

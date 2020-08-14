@@ -3,5 +3,7 @@
 **/__pycache__
 .vscode/
 
+*.tar.gz
+
 *.pth
 *.pt

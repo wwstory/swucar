@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import rospy
-from cv_bridge import CvBridge, CvBridgeError
+from ww_cv_bridge import CvBridge, CvBridgeError
 from sensor_msgs.msg import Image
 from test_tools.msg import Bbox, Lane
 import message_filters
