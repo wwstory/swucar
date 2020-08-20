@@ -1,6 +1,14 @@
 
 # 控制
 
+**安装**
+
+```sh
+sudo apt install ros-melodic-rosserial ros-melodic-rosserial-server ros-melodic-rosserial-arduino ros-melodic-rosserial-python
+```
+
+**运行**
+
 ```sh
 roscore
 

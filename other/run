@@ -13,6 +13,10 @@ test_bag(){
     rosbag play $1
 }
 
+test_twist(){
+    roslaunch test_tools fake_twist.launch
+}
+
 build(){
     rm -rf devel/ build/
     catkin_make -DPYTHON_EXECUTABLE=/usr/bin/python3
@@ -26,8 +30,11 @@ case $1 in
     "test")
         test_dev
     ;;
-    "testd")
+    "test_bag")
         test_bag $2
+    ;;
+    "test_op")
+        test_twist
     ;;
     *)
         run

@@ -2,20 +2,27 @@
 #include <ros.h>
 #include <geometry_msgs/Twist.h>
 
+/**
+* 舵机库Servo冲突：
+* attach 9 -> 10 pwm无法使用
+* attach 10 -> 9 pwm无法使用
+* attach 11 -> 9、10 pwm无法使用
+*/
+
 #define OFFSET -9
 #define MAX_ANGLE 30
 #define MAX_SPEED 255
 
 #define SERVO_PIN 10
-#define MOTOR_PWM_PIN 9
+#define MOTOR_PWM_PIN 6
 #define MOTOR_DIR_PIN 8
 
 // 命令消息处理
 void process(const geometry_msgs::Twist &msg);
 // 控制转向
-void steer_ctl(float angle);
+void ctl_steer(float angle);
 // 控制电机
-void steer_motor(float speed);
+void ctl_motor(float speed);
 // 转向角度映射
 int map_angle(float angle);
 // 电机速度映射
@@ -28,7 +35,7 @@ Servo my_servo;
 
 void setup() {
   // put your setup code here, to run once:
-  pinMode(SERVO_PIN, OUTPUT);
+  // pinMode(SERVO_PIN, OUTPUT);
   my_servo.attach(SERVO_PIN);
   pinMode(MOTOR_PWM_PIN, OUTPUT);
   pinMode(MOTOR_DIR_PIN, OUTPUT);
@@ -75,9 +82,17 @@ void ctl_motor(float speed){
 }
 
 int map_angle(float angle){
+  // limit
+  if(angle > 1)angle = 1;
+  else if(angle < -1)angle = -1;
+
   return (int)(angle * MAX_ANGLE) + 90 + OFFSET;
 }
 
 int map_speed(float speed){
+  // limit
+  if(speed > 1)speed = 1;
+  else if(speed < -1)speed = -1;
+
   return (int)(speed * MAX_SPEED);
 }
