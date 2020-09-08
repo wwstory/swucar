@@ -66,6 +66,18 @@ class Status:
 
     def __init__(self, time=0):
         self.time = time
+    
+    def set_time(self):
+        '''
+            设置最后接收的感知消息的时间为当前状态的时间
+        '''
+        if self.time_perceive == {}:
+            return False
+        self.time = sorted(self.time_perceive.items(), key=lambda x: x[1])[0][1]
+        return True
 
+    def clear(self):
+        self.have_data = False
+        self.time_perceive.clear()
 
 # status = Status()

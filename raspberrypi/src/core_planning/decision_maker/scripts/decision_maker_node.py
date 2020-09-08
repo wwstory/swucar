@@ -66,7 +66,8 @@ if __name__ == "__main__":
 
     rospy.loginfo('[swucar] start decision...')
     while not rospy.is_shutdown():
+        status.set_time()
         twist = decision(twist, status)
         vel_pub.publish(twist)      # 发布控制消息
-        status.have_data = False    # 标志置False，为了判断后面的数据是否有接收
+        status.clear()  # 清除之前状态
         rate.sleep()

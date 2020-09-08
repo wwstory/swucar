@@ -47,3 +47,31 @@ def plot_lane_dot(img, lanes):
             x, y = point
             cv2.circle(img, (x, y), 3, (70, 70, 255), -1)
     return img
+
+def get_speed_and_angle(twist_msg):
+    return twist_msg.linear.x, twist_msg.angular.z
+
+def plot_process_bar(img, x, orient='h', length=0.5, location=(0.5, 0.5), thickness=0.02, grap=0.005, front_color=(255, 255, 255), background_color=(0, 0, 0)):
+    h, w, _ = img.shape
+
+    if orient == 'h':
+        x1, x2 = int(w*(location[0]-length/2)), int(w*(location[0]+length/2))
+        y1, y2 = int(h*(location[1]-thickness/2)), int(h*(location[1]+thickness/2))
+        img[y1:y2, x1:x2] = background_color
+        if x > 0:
+            x1, x2 = int(w*(location[0])), int(w*(location[0]+length/2*x))
+        else:
+            x1, x2 = int(w*(location[0]+length/2*x)), int(w*(location[0]))
+        y1, y2 = int(h*(location[1]-thickness/2+grap)), int(h*(location[1]+thickness/2-grap))
+        img[y1:y2, x1:x2] = front_color
+    return img
+
+def get_color_for_val(val, segment=[0, 0.3, 0.6, 0.9, 1.], colors=[(255, 255, 255), (100, 255, 100), (255, 100, 100), (100, 100, 255)]):
+    '''
+        区间分段，设置颜色值。
+        注：分段列表比颜色多1
+    '''
+    for i in range(len(segment)-1):
+        if segment[i] < abs(val) <= segment[i+1]:
+            return colors[i] 
+    return colors[0]
