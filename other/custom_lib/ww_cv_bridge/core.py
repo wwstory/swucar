@@ -1,6 +1,7 @@
 import numpy as np
+import cv2
 
-from sensor_msgs.msg import Image
+from sensor_msgs.msg import Image, CompressedImage
 
 
 class CvBridgeError(TypeError):
@@ -33,3 +34,20 @@ class CvBridge:
             img_msg.is_bigendian = True
         img_msg.step = len(img_msg.data) // img_msg.height
         return img_msg
+
+
+    def cv2_to_compressed_imgmsg(self, cv_image, format='jpeg'):
+        assert isinstance(cv_image, np.ndarray), 'input type must is numpy.ndarray'
+
+        img_msg = CompressedImage()
+        img_msg.format = format if format in ['jpeg', 'png'] else 'jpeg'
+        img_msg.data = np.array(cv2.imencode('.jpg', cv_image)[1]).tostring()
+        return img_msg
+
+
+    def compressed_imgmsg_to_cv2(self, img_msg):
+        assert isinstance(img_msg, CompressedImage), 'input type must is sensor_msgs.CompressedImage'
+
+        img_arr = np.fromstring(img_msg.data, np.uint8)
+        img = cv2.imdecode(img_arr, cv2.IMREAD_COLOR)
+        return img

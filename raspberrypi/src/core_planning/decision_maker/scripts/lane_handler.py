@@ -50,9 +50,11 @@ class LaneHandler:
             break   # 找到该行后，不管其它行了
         
         rospy.loginfo(f'{l_p}, {r_p}')
+        l_p, r_p = (l_p-0.5)*2, (r_p-0.5)*2 # 以图像中间为0点
         m_p = (l_p + r_p) / 2   # 找到中间点
         steer_rate = 1.0    # 转向系数
-        twist = set_twist(twist, (0.5 - m_p) * 2 * steer_rate, 1.) # 设置转向角度，速度
+        angle = max(min(- m_p * steer_rate, 1), -1) # 限制值的范围-1.~1.
+        twist = set_twist(twist, angle, 1.) # 设置转向角度，速度
 
         # rospy.loginfo(f'{(0.5 - m_p) * 2 * steer_rate}')
         rospy.loginfo(twist)

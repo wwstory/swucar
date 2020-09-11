@@ -10,8 +10,8 @@ from ww_cv_bridge import CvBridge, CvBridgeError
 
 class ObjectDetectNode:
     
-    def __init__(self, weights_path):
-        self.object_detector = Detect(weights_path)
+    def __init__(self, weights_path, is_classify = False):
+        self.object_detector = Detect(weights_path, is_classify)
         self.bridge = CvBridge()
 
         self.img_sub = rospy.Subscriber('/image_raw_rgb', Image, self.callback, queue_size=3)
@@ -82,5 +82,6 @@ if __name__ == "__main__":
     from my_detect import Detect
 
     weights_path = rospy.get_param('~weights_path')
+    is_classify = rospy.get_param('~is_classify', default=False)
     
-    ObjectDetectNode(weights_path).start()
+    ObjectDetectNode(weights_path, is_classify).start()

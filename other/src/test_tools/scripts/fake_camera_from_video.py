@@ -14,10 +14,11 @@
 
 
 import rospy
-from sensor_msgs.msg import Image
+from sensor_msgs.msg import CompressedImage
 from ww_cv_bridge import CvBridge, CvBridgeError
 
 import cv2
+import numpy as np
 import os
 
 
@@ -30,12 +31,12 @@ if __name__ == "__main__":
     rospy.init_node('fake_camera_node')
     rospy.on_shutdown(clean_up)
 
-    pub = rospy.Publisher('/image_raw', Image, queue_size=1)
+    pub = rospy.Publisher('/image_raw/compressed', CompressedImage, queue_size=1)
 
     bridge = CvBridge()
 
     video_path = rospy.get_param('test_file_path')
-    play_rate = rospy.get_param('~rate')
+    play_rate = rospy.get_param('~rate', default=24)
 
     rate = rospy.Rate(play_rate)
 
@@ -53,9 +54,9 @@ if __name__ == "__main__":
             continue
 
         try:
-            img_ros = bridge.cv2_to_imgmsg(img, encoding="bgr8")
-            img_ros.header.stamp = rospy.Time.now()
-            pub.publish(img_ros)
+            img_msg = bridge.cv2_to_compressed_imgmsg(img)
+            img_msg.header.stamp = rospy.Time.now()
+            pub.publish(img_msg)
         except CvBridgeError as e:
             print(e)
         

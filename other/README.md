@@ -14,3 +14,11 @@ roscore
 rosrun uvc_camera uvc_camera_node
 #rosrun uvc_camera uvc_camera_node _device:=/dev/video2
 ```
+
+# error
+
+## cv2.VideoCapture读取不到视频
+
+```sh
+pip3 install opencv-contrib-python
+```

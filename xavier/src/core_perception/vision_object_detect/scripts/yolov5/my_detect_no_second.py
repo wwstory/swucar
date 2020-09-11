@@ -3,7 +3,6 @@ import torch
 from random import randint
 
 from utils.general import *
-from light_recognizer import LightRecognizer
 
 class Detect:
 
@@ -19,16 +18,13 @@ class Detect:
     is_classify = False
     img_size = 640
 
-    need_second_classifier = ['light red', 'light green', 'light yellow']
-
-    def __init__(self, weights='weights/yolov5s.pth', is_classify = False):
+    def __init__(self, weights='weights/yolov5s.pth'):
         self.weights = weights
 
         # Initialize
         device = select_device(self.device)
         self.device = device
         self.half = device.type != 'cpu'  # half precision only supported on CUDA
-        self.is_classify = is_classify
 
         # Load model
         # 1
@@ -46,7 +42,7 @@ class Detect:
         
         # Second-stage classifier
         if self.is_classify:
-            self.lr = LightRecognizer()
+            pass
             # modelc = load_classifier(name='resnet101', n=2)  # initialize
             # modelc.load_state_dict(torch.load('weights/resnet101.pt', map_location=device)['model'])  # load weights
             # modelc.to(device).eval()
@@ -64,7 +60,6 @@ class Detect:
 
     def detect(self, img):
         # Origin
-        img0 = img.copy()
         img0_shape = img.shape
 
         # Convert
@@ -83,8 +78,8 @@ class Detect:
 
         # Apply Classifier
         if self.is_classify:
-            # pass
-            bbox = self._second_classifier(img0, bbox)
+            # pred = apply_classifier(pred, modelc, img, im0s)
+            pass
 
         return bbox
 
@@ -105,9 +100,6 @@ class Detect:
         return img
 
     def _convert_pred(self, pred, img, img0_shape):
-        '''
-            bbox: [[x1, y1, x2, y2, classes, conf], [...], ...]
-        '''
         bbox = []
 
         if pred[0] is None:
@@ -127,18 +119,6 @@ class Detect:
             classes_name = self.names[classes_index]
             bbox.append([x1/w0, y1/h0, x2/w0, y2/h0, classes_name, conf])   # 绝对坐标 -> 0~1
         return bbox
-    
-    def _second_classifier(self, img0, bbox):
-        for b in bbox:
-            if b[4] in self.need_second_classifier:
-                h, w, _ = img0.shape
-                x1, y1, x2, y2 = b[:4]
-                x1, x2 = list(map(lambda x: int(x*w), [x1, x2]))
-                y1, y2 = list(map(lambda x: int(x*h), [y1, y2]))
-                classes = self.lr.recognize(img0[y1:y2, x1:x2])
-                b[4] = classes
-        return bbox
-
 
     def show(self, img, bbox, out_path='out.jpg'):
         h, w, _ = img.shape

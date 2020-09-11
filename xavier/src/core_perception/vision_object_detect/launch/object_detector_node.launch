@@ -3,5 +3,6 @@
         <remap from="image_raw_rgb" to="/image_raw" />
         <param name="weights_path" value="$(find vision_object_detect)/weights/yolov5s17.pt" />
         <param name="yolov5_path" value="$(find vision_object_detect)/scripts/yolov5" />
+        <param name="is_classify" type="bool" value="true" />
     </node>
 </launch>
