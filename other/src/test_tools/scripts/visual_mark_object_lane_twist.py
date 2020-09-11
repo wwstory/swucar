@@ -47,7 +47,7 @@ def all_callback(img, bbox_msg, lane_msg):
     global angle
 
     try:
-        img = bridge.imgmsg_to_compressed_cv2(img)
+        img = bridge.compressed_imgmsg_to_cv2(img)
     except CvBridgeError as e:
         print(e)
     
@@ -78,7 +78,7 @@ def all_callback(img, bbox_msg, lane_msg):
     plot_process_bar(img, angle, length=0.7, location=(0.5, 0.9), thickness=0.02, grap=0.005, front_color=get_color_for_val(angle), background_color=(0, 0, 0))
     plot_process_bar(img, speed, length=0.7, location=(0.5, 0.95), thickness=0.02, grap=0.005, front_color=get_color_for_val(speed), background_color=(0, 0, 0))
 
-    img_mark = bridge.compressed_cv2_to_imgmsg(img)
+    img_mark = bridge.cv2_to_compressed_imgmsg(img)
     img_mark.header.stamp = rospy.Time.now()
 
     img_mark_pub.publish(img_mark)

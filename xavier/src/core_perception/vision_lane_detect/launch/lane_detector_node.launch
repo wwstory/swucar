@@ -1,6 +1,6 @@
 <launch>
     <node pkg="vision_lane_detect" type="lane_detect_node.py" name="lane_detect_node" output="screen">
-        <remap from="image_raw_rgb" to="/image_raw" />
+        <remap from="image_raw_rgb" to="/image_raw/compressed" />
         <param name="weights_path" value="$(find vision_lane_detect)/weights/culane_18.pth" />
         <param name="ufld_path" value="$(find vision_lane_detect)/scripts/ufld" />
     </node>

@@ -4,7 +4,7 @@ import rospy
 import cv2
 import numpy as np
 
-from sensor_msgs.msg import Image
+from sensor_msgs.msg import CompressedImage
 from vision_lane_detect.msg import Lane
 from ww_cv_bridge import CvBridge, CvBridgeError
 
@@ -15,7 +15,7 @@ class LaneDetectNode:
         self.lane_detector = LaneDetector(weights_path)
         self.bridge = CvBridge()
 
-        self.img_sub = rospy.Subscriber('/image_raw_rgb', Image, self.callback, queue_size=3)
+        self.img_sub = rospy.Subscriber('/image_raw_rgb', CompressedImage, self.callback, queue_size=3)
         self.lane_pub = rospy.Publisher('/perceive/lane_detection', Lane, queue_size=3)
 
     def start(self):
@@ -25,7 +25,7 @@ class LaneDetectNode:
     def callback(self, data):
         # 转换图片
         try:
-            img = self.bridge.imgmsg_to_cv2(data, 'bgr8')
+            img = self.bridge.compressed_imgmsg_to_cv2(data)
         except CvBridge as e:
             print(e)
 

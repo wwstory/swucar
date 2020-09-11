@@ -3,7 +3,7 @@
 import rospy
 import cv2
 from std_msgs.msg import String
-from sensor_msgs.msg import Image
+from sensor_msgs.msg import CompressedImage
 from vision_object_detect.msg import Bbox
 from ww_cv_bridge import CvBridge, CvBridgeError
 
@@ -14,7 +14,7 @@ class ObjectDetectNode:
         self.object_detector = Detect(weights_path, is_classify)
         self.bridge = CvBridge()
 
-        self.img_sub = rospy.Subscriber('/image_raw_rgb', Image, self.callback, queue_size=3)
+        self.img_sub = rospy.Subscriber('/image_raw_rgb', CompressedImage, self.callback, queue_size=3)
         self.object_pub = rospy.Publisher('/perceive/object_detection', Bbox, queue_size=3)
 
     def start(self):
@@ -24,7 +24,7 @@ class ObjectDetectNode:
     def callback(self, data):
         # 转换图片
         try:
-            img = self.bridge.imgmsg_to_cv2(data, 'bgr8')
+            img = self.bridge.compressed_imgmsg_to_cv2(data)
         except CvBridge as e:
             print(e)
 
